@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2010 Kevin Decker (http://www.incaseofstairs.com/)
+ * See LICENSE for license information
+ */
 // TODO : Parameter loading
 // TODO : Border width dropdown mode
 // TODO : Optimize output
