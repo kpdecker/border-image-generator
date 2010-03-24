@@ -1,0 +1,70 @@
+body > div {
+    background-color: teal;
+    -moz-border-radius: 25px;
+    -webkit-border-radius: 25px;
+    border-radius: 25px;
+    padding: 10px;
+    margin: 10px 0px;
+    overflow: hidden;
+}
+
+input[type="text"] {
+    width: 300px;
+}
+body > div > h2 {
+    margin: 0px;
+    padding: 0px;
+    color: white;
+    display: inline-block;
+}
+
+.setupSection > div {
+    padding: 10px;
+}
+
+#cssEl {
+    white-space: pre;
+}
+
+#editorEl {
+    position: relative;
+    float: right;
+    margin-right: 25px;
+}
+.divider {
+    background-color: red;
+    opacity: 0.8;
+    cursor: move;
+
+    position: absolute;
+    width: 2px;
+    height: 2px;
+}
+
+.top-divider, .bottom-divider {
+    width: 100%;
+    left: 0px;
+}
+.top-divider {
+    top: 0px;
+}
+.bottom-divider {
+    bottom: 0px;
+}
+
+.left-divider, .right-divider {
+    top: 0px;
+    height: 100%;
+}
+.left-divider {
+    left: 0px;
+}
+.right-divider {
+    right: 0px;
+}
+
+.slider {
+    display: inline-block;
+    width: 200px;
+    margin: 0 0.6em;
+}
