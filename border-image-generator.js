@@ -99,8 +99,8 @@ $(document).ready(function() {
 
     imageEl.load(function() {
          var img = this,
-            width = img.width*scaleFactor,
-            height = img.height*scaleFactor;
+            width = img.natualWidth*scaleFactor,
+            height = img.naturalHeight*scaleFactor;
 
         $("#editorEl, #imageEl").width(width).height(height);
         updateCSS();
