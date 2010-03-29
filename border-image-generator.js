@@ -19,15 +19,15 @@ $(document).ready(function() {
         };
 
     var sliderMap = {
-        imageTop: { array: state.imageOffset, index: 0 },
-        imageRight: { array: state.imageOffset, index: 1 },
-        imageBottom: { array: state.imageOffset, index: 2 },
-        imageLeft: { array: state.imageOffset, index: 3 },
+        imageTop: { array: "imageOffset", index: 0 },
+        imageRight: { array: "imageOffset", index: 1 },
+        imageBottom: { array: "imageOffset", index: 2 },
+        imageLeft: { array: "imageOffset", index: 3 },
 
-        borderTop: { array: state.borderWidth, index: 0 },
-        borderRight: { array: state.borderWidth, index: 1 },
-        borderBottom: { array: state.borderWidth, index: 2 },
-        borderLeft: { array: state.borderWidth, index: 3 },
+        borderTop: { array: "borderWidth", index: 0 },
+        borderRight: { array: "borderWidth", index: 1 },
+        borderBottom: { array: "borderWidth", index: 2 },
+        borderLeft: { array: "borderWidth", index: 3 },
     }, dividerMap = {
         dividerTop: {
             setValue: function(el) { state.imageOffset[0] = calcPixels($(el).position().top) },
@@ -53,7 +53,7 @@ $(document).ready(function() {
     function updateSliders() {
         $(".image-offset").each(function(index, el) {
             var map = sliderMap[el.id];
-            $(el).slider("option", "value", map.array[map.index])
+            $(el).slider("option", "value", state[map.array][map.index])
         });
     }
     function updateDividers() {
@@ -81,8 +81,8 @@ $(document).ready(function() {
         max: 100,
         slide: function(event, ui) {
             var map = sliderMap[event.target.id];
-            map.array[map.index] = ui.value;
-            
+            state[map.array][map.index] = ui.value;
+
             updateCSS();
             updateDividers();
         }
