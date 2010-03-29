@@ -2,7 +2,6 @@
  * Copyright (c) 2010 Kevin Decker (http://www.incaseofstairs.com/)
  * See LICENSE for license information
  */
-// TODO : Parameter loading
 // TODO : Border width dropdown mode
 // TODO : Optimize output
 $(document).ready(function() {
@@ -13,6 +12,7 @@ $(document).ready(function() {
         sliders = $(".slider"),
 
         state = {
+            src: "http://www.css3.info/wp-content/uploads/2007/09/border.png",
             borderWidth: [0, 0, 0, 0],
             imageOffset: [0, 0, 0, 0],
             scaleFactor: 3
@@ -51,7 +51,7 @@ $(document).ready(function() {
         return (pos / state.scaleFactor) | 0;
     }
     function updateSliders() {
-        $(".image-offset").each(function(index, el) {
+        $(".slider").each(function(index, el) {
             var map = sliderMap[el.id];
             $(el).slider("option", "value", state[map.array][map.index])
         });
@@ -60,6 +60,9 @@ $(document).ready(function() {
         dividers.each(function(index, el) {
             dividerMap[el.id].updatePos(el);
         });
+    }
+    function updateHash() {
+        window.location = "#" + JSON.stringify(state);
     }
     function updateCSS() {
         var img = "url(" + pathToImage.val() + ")",
@@ -85,6 +88,9 @@ $(document).ready(function() {
 
             updateCSS();
             updateDividers();
+        },
+        stop: function() {
+            updateHash();
         }
     });
     dividers.draggable({
@@ -94,23 +100,38 @@ $(document).ready(function() {
             dividerMap[event.target.id].setValue(event.target);
             updateCSS();
             updateSliders();
+        },
+        stop: function() {
+            updateHash();
         }
     });
     dividers.filter(":even").draggable("option", "axis", "y");
     dividers.filter(":odd").draggable("option", "axis", "x");
 
     imageEl.load(function() {
-         var img = this,
+        var img = this,
             width = img.natualWidth*state.scaleFactor,
             height = img.naturalHeight*state.scaleFactor;
 
         $("#editorEl, #imageEl").width(width).height(height);
+        updateSliders();
+        updateDividers();
         updateCSS();
     })
     pathToImage.change(function(event) {
         state.src = pathToImage.val();
         imageEl[0].src = state.src;
+        updateHash();
     });
 
+    $.historyInit(function(hash) {
+        if (hash) {
+            state = JSON.parse(hash);
+        }
+        updateSliders();
+        updateDividers();
+        updateCSS();
+        pathToImage.val(state.src);
+    });
     pathToImage.change();
 });
