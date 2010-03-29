@@ -18,7 +18,7 @@
         <div id="cssEl"></div>
     </div>
 
-    <div class="setupSection">
+    <div>
         <h2>Editor</h2>
         <div id="editorEl">
             <img id="imageEl">
@@ -31,21 +31,25 @@
         <div>
             <label for="pathToImage">Path to Image:</label><input type="text" id="pathToImage">
         </div>
-        <div>
-            <label for="imageTop">Top Offset:</label><div id="imageTop" class="slider image-offset"></div>
-            <label for="borderTop">Top Border:</label><div id="borderTop" class="slider border-width"></div>
+
+        <div class="setupSection">
+            <div><label for="imageTop">Top Offset:</label><div id="imageTop" class="slider image-offset"></div></div>
+            <div><label for="imageRight">Right Offset:</label><div id="imageRight" class="slider image-offset"></div></div>
+            <div><label for="imageBottom">Bottom Offset:</label><div id="imageBottom" class="slider image-offset"></div></div>
+            <div><label for="imageLeft">Left Offset:</label><div id="imageLeft" class="slider image-offset"></div></div>
         </div>
+
         <div>
-            <label for="imageRight">Right Offset:</label><div id="imageRight" class="slider image-offset"></div>
-            <label for="borderRight">Right Border:</label><div id="borderRight" class="slider border-width"></div>
-        </div>
-        <div>
-            <label for="imageBottom">Bottom Offset:</label><div id="imageBottom" class="slider image-offset"></div>
-            <label for="borderBottom">Bottom Border:</label><div id="borderBottom" class="slider border-width"></div>
-        </div>
-        <div>
-            <label for="imageLeft">Left Offset:</label><div id="imageLeft" class="slider image-offset"></div>
-            <label for="borderLeft">Left Border:</label><div id="borderLeft" class="slider border-width"></div>
+            <div id="borderOptionsExpander">
+                <span class="ui-icon ui-icon-triangle-1-e"></span>
+                <a href="#">Border Size</a>
+            </div>
+            <div id="borderOptions" class="setupSection" style="display: none">
+                <div><label for="borderTop">Top Border:</label><div id="borderTop" class="slider border-width"></div></div>
+                <div><label for="borderRight">Right Border:</label><div id="borderRight" class="slider border-width"></div></div>
+                <div><label for="borderBottom">Bottom Border:</label><div id="borderBottom" class="slider border-width"></div></div>
+                <div><label for="borderLeft">Left Border:</label><div id="borderLeft" class="slider border-width"></div></div>
+            </div>
         </div>
     </div>
 

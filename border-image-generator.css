@@ -12,8 +12,15 @@ body > div {
     overflow: hidden;
 }
 
+label {
+    float: left;
+    width: 10em;
+    text-align: right;
+}
+
 input[type="text"] {
     width: 300px;
+    margin-left: 0.6em;
 }
 
 body > div > h2 {
@@ -24,7 +31,7 @@ body > div > h2 {
 }
 
 .setupSection > div {
-    padding: 10px;
+    padding: 5px 0px;
 }
 
 #cssEl {
@@ -72,4 +79,8 @@ body > div > h2 {
     display: inline-block;
     width: 200px;
     margin: 0 0.6em;
+}
+
+.ui-icon {
+    display: inline-block;
 }

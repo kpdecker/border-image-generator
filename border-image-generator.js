@@ -2,7 +2,6 @@
  * Copyright (c) 2010 Kevin Decker (http://www.incaseofstairs.com/)
  * See LICENSE for license information
  */
-// TODO : Border width dropdown mode
 // TODO : Optimize output
 $(document).ready(function() {
     var pathToImage = $("#pathToImage"),
@@ -13,6 +12,7 @@ $(document).ready(function() {
 
         state = {
             src: "http://www.css3.info/wp-content/uploads/2007/09/border.png",
+            linkBorder: true,
             borderWidth: [0, 0, 0, 0],
             imageOffset: [0, 0, 0, 0],
             scaleFactor: 3
@@ -66,8 +66,10 @@ $(document).ready(function() {
     }
     function updateCSS() {
         var img = "url(" + pathToImage.val() + ")",
-            borderImage = img + " " + state.imageOffset.join(" "),
-            borderWidthStr = state.borderWidth.join("px ") + "px",
+            imageOffset = state.imageOffset,
+            borderWidth = state.linkBorder ? state.imageOffset : state.borderWidth,
+            borderImage = img + " " + imageOffset.join(" "),
+            borderWidthStr = borderWidth.join("px ") + "px",
             style = "border-width: " + borderWidthStr + ";\n"
                 + "-moz-border-image: " + borderImage + ";\n"
                 + "-webkit-border-image: " + borderImage + ";\n"
@@ -124,9 +126,28 @@ $(document).ready(function() {
         updateHash();
     });
 
+    $("#borderOptionsExpander").toggle(
+        function() {
+            $("#borderOptionsExpander > span").removeClass("ui-icon-triangle-1-e").addClass("ui-icon-triangle-1-s");
+            $("#borderOptions").show();
+            state.linkBorder = false;
+            updateCSS();
+            updateHash();
+        },
+        function() {
+            $("#borderOptionsExpander > span").removeClass("ui-icon-triangle-1-s").addClass("ui-icon-triangle-1-e");
+            $("#borderOptions").hide();
+            state.linkBorder = true;
+            updateCSS();
+            updateHash();
+        });
+
     $.historyInit(function(hash) {
         if (hash) {
             state = JSON.parse(hash);
+        }
+        if ($("#borderOptions").is(":visible") === state.linkBorder) {
+            $("#borderOptionsExpander").click();
         }
         updateSliders();
         updateDividers();
