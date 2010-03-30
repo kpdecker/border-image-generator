@@ -115,6 +115,9 @@ $(document).ready(function() {
             width = img.naturalWidth*state.scaleFactor,
             height = img.naturalHeight*state.scaleFactor;
 
+        sliders.filter(":odd").slider("option", "max", img.naturalWidth);
+        sliders.filter(":even").slider("option", "max", img.naturalHeight);
+
         $("#editorEl, #imageEl").width(width).height(height);
         updateSliders();
         updateDividers();
