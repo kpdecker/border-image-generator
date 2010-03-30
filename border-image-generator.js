@@ -144,7 +144,7 @@ $(document).ready(function() {
 
     $.historyInit(function(hash) {
         if (hash) {
-            state = JSON.parse(hash);
+            state = JSON.parse(decodeURIComponent(hash));
         }
         if ($("#borderOptions").is(":visible") === state.linkBorder) {
             $("#borderOptionsExpander").click();
