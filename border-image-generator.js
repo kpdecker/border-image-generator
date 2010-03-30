@@ -53,7 +53,7 @@ $(document).ready(function() {
     function updateSliders() {
         $(".slider").each(function(index, el) {
             var map = sliderMap[el.id];
-            $(el).slider("option", "value", state[map.array][map.index])
+            $(el).slider("option", "value", state[map.array][map.index]);
         });
     }
     function updateDividers() {
@@ -112,7 +112,7 @@ $(document).ready(function() {
 
     imageEl.load(function() {
         var img = this,
-            width = img.natualWidth*state.scaleFactor,
+            width = img.naturalWidth*state.scaleFactor,
             height = img.naturalHeight*state.scaleFactor;
 
         $("#editorEl, #imageEl").width(width).height(height);
