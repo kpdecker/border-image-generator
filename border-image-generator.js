@@ -64,7 +64,7 @@ $(document).ready(function() {
         });
     }
     function updateHash() {
-        $.historyStore(JSON.stringify(state));
+        HistoryHandler.store(JSON.stringify(state));
     }
     function updateCSS() {
         var img = "url(" + pathToImage.val() + ")",
@@ -153,7 +153,7 @@ $(document).ready(function() {
             updateHash();
         });
 
-    $.historyInit(function(hash) {
+    HistoryHandler.init(function(hash) {
         if (hash) {
             state = JSON.parse(hash);
         }
