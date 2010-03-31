@@ -10,8 +10,6 @@ $(document).ready(function() {
         dividers = $(".divider"),
         sliders = $(".slider"),
 
-        marginSize,
-
         state = {
             src: "http://www.css3.info/wp-content/uploads/2007/09/border.png",
             linkBorder: true,
@@ -75,17 +73,13 @@ $(document).ready(function() {
             style = "border-width: " + borderWidthStr + ";\n"
                 + "-moz-border-image: " + borderImage + ";\n"
                 + "-webkit-border-image: " + borderImage + ";\n"
-                + "border-image: " + borderImage + ";",
-
-            // We want to keep everythign in the same position while dragging, so make the margin 
-            marginSize = borderWidth.map(function(input) { return marginSize-input; }).join("px ") + "px";
+                + "border-image: " + borderImage + ";";
 
         $("#cssEl").html(style)
                 .css("border-width", borderWidthStr)
                 .css("-moz-border-image", borderImage)
                 .css("-webkit-border-image", borderImage)
-                .css("border-image", borderImage)
-                .css("margin", marginSize);
+                .css("border-image", borderImage);
     }
 
     sliders.slider({
@@ -121,7 +115,6 @@ $(document).ready(function() {
             width = img.naturalWidth*state.scaleFactor,
             height = img.naturalHeight*state.scaleFactor;
 
-        marginSize = Math.max(width, height);
 
         sliders.filter(":odd").slider("option", "max", img.naturalWidth);
         sliders.filter(":even").slider("option", "max", img.naturalHeight);
