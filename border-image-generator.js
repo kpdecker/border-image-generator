@@ -115,6 +115,8 @@ $(document).ready(function() {
             width = img.naturalWidth*state.scaleFactor,
             height = img.naturalHeight*state.scaleFactor;
 
+        // Correct for any HTTP escaping issues in the input
+        state.src = img.src;
 
         sliders.filter(":odd").slider("option", "max", img.naturalWidth);
         sliders.filter(":even").slider("option", "max", img.naturalHeight);
