@@ -125,11 +125,11 @@ $(document).ready(function() {
         updateSliders();
         updateDividers();
         updateCSS();
+        updateHash();
     })
     pathToImage.change(function(event) {
         state.src = pathToImage.val();
         imageEl[0].src = state.src;
-        updateHash();
     });
 
     $("#borderOptionsExpander").toggle(
@@ -155,10 +155,15 @@ $(document).ready(function() {
         if ($("#borderOptions").is(":visible") === state.linkBorder) {
             $("#borderOptionsExpander").click();
         }
-        updateSliders();
-        updateDividers();
-        updateCSS();
-        pathToImage.val(state.src);
+
+        if (imageEl[0].src !== state.src) {
+            // The other values will update when the image loads
+            pathToImage.val(state.src);
+            pathToImage.change();
+        } else {
+            updateSliders();
+            updateDividers();
+            updateCSS();
+        }
     });
-    pathToImage.change();
 });
