@@ -62,7 +62,7 @@ $(document).ready(function() {
         });
     }
     function updateHash() {
-        window.location = "#" + JSON.stringify(state);
+        $.historyStore(JSON.stringify(state));
     }
     function updateCSS() {
         var img = "url(" + pathToImage.val() + ")",
@@ -147,7 +147,7 @@ $(document).ready(function() {
 
     $.historyInit(function(hash) {
         if (hash) {
-            state = JSON.parse(decodeURIComponent(hash));
+            state = JSON.parse(hash);
         }
         if ($("#borderOptions").is(":visible") === state.linkBorder) {
             $("#borderOptionsExpander").click();
