@@ -98,7 +98,6 @@ $(document).ready(function() {
     dividers.draggable({
         containment: "parent",
         drag: function(event, ui) {
-            // TODO : Prevent overlap along the same axis
             dividerMap[event.target.id].setValue(event.target);
             updateCSS();
             updateSliders();
@@ -149,6 +148,8 @@ $(document).ready(function() {
         });
 
     HistoryHandler.init(function(hash) {
+        var prevScale = state.scaleFactor;
+
         if (hash) {
             state = JSON.parse(hash);
         }
@@ -160,6 +161,8 @@ $(document).ready(function() {
             // The other values will update when the image loads
             pathToImage.val(state.src);
             pathToImage.change();
+        } else if (prevScale !== state.scaleFactor) {
+            imageEl.load();
         } else {
             updateSliders();
             updateDividers();
