@@ -43,6 +43,11 @@ body > div > h2 {
     float: right;
     margin-right: 25px;
 }
+#imageEl {
+    width: 100%;
+    height: 100%;
+}
+
 .divider {
     background-color: red;
     opacity: 0.8;

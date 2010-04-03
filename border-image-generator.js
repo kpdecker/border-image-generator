@@ -117,10 +117,10 @@ $(document).ready(function() {
         // Correct for any HTTP escaping issues in the input
         state.src = img.src;
 
+        editorEl.width(width).height(height);
+
         sliders.filter(":odd").slider("option", "max", img.naturalWidth);
         sliders.filter(":even").slider("option", "max", img.naturalHeight);
-
-        $("#editorEl, #imageEl").width(width).height(height);
         updateSliders();
         updateDividers();
         updateCSS();
@@ -146,6 +146,21 @@ $(document).ready(function() {
             updateCSS();
             updateHash();
         });
+    editorEl.resizable({
+        reverseXAxis: true,
+        handles: "s, w, sw",
+        aspectRatio: true,
+        resize: function() {
+            state.scaleFactor = editorEl.innerWidth() / imageEl[0].naturalWidth;
+
+            updateSliders();
+            updateDividers();
+            updateCSS();
+        },
+        stop: function() {
+            updateHash();
+        }
+    });
 
     HistoryHandler.init(function(hash) {
         var prevScale = state.scaleFactor;
