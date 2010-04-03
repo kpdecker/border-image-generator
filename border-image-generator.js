@@ -11,7 +11,7 @@ $(document).ready(function() {
         sliders = $(".slider"),
 
         state = {
-            src: "http://www.css3.info/wp-content/uploads/2007/09/border.png",
+            src: "",
             linkBorder: true,
             borderWidth: [0, 0, 0, 0],
             imageOffset: [0, 0, 0, 0],
