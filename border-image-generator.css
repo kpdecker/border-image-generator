@@ -47,6 +47,15 @@ body > div > h2 {
     float: right;
     margin-right: 25px;
 }
+#editorEl > .ui-resizable-s,
+#editorEl > .ui-resizable-sw {
+    bottom: -7px;
+}
+#editorEl > .ui-resizable-w,
+#editorEl > .ui-resizable-sw {
+    left: -7px;
+}
+
 #imageEl {
     width: 100%;
     height: 100%;
