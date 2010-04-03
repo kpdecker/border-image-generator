@@ -34,6 +34,10 @@ body > div > h2 {
     padding: 5px 0px;
 }
 
+#borderOptionsExpander {
+    display: inline-block;
+}
+
 #cssEl {
     white-space: pre;
 }
