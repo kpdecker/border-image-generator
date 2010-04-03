@@ -46,6 +46,7 @@ body > div > h2 {
     position: relative;
     float: right;
     margin-right: 25px;
+    border: 2px solid white;
 }
 #editorEl > .ui-resizable-s,
 #editorEl > .ui-resizable-sw {

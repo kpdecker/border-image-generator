@@ -34,12 +34,12 @@ $(document).ready(function() {
             updatePos: function(el) { $(el).css("top", state.imageOffset[0]*state.scaleFactor); }
         },
         dividerRight: {
-            setValue: function(el) { state.imageOffset[1] = calcPixels(editorEl.innerWidth() - $(el).position().left - 2) },
-            updatePos: function(el) { $(el).css("left", (editorEl.innerWidth() - state.imageOffset[1]*state.scaleFactor) + 2); }
+            setValue: function(el) { state.imageOffset[1] = calcPixels(editorEl.innerWidth() - $(el).position().left + 2) },
+            updatePos: function(el) { $(el).css("left", (editorEl.innerWidth() - 2 - state.imageOffset[1]*state.scaleFactor)); }
         },
         dividerBottom: {
-            setValue: function(el) { state.imageOffset[2] = calcPixels(editorEl.innerHeight() - $(el).position().top - 2) },
-            updatePos: function(el) { $(el).css("top", (editorEl.innerHeight() - state.imageOffset[2]*state.scaleFactor) + 2); }
+            setValue: function(el) { state.imageOffset[2] = calcPixels(editorEl.innerHeight() - $(el).position().top + 2) },
+            updatePos: function(el) { $(el).css("top", (editorEl.innerHeight() - 2 - state.imageOffset[2]*state.scaleFactor)); }
         },
         dividerLeft: {
             setValue: function(el) { state.imageOffset[3] = calcPixels($(el).position().left) },
