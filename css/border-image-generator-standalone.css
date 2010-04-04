@@ -1,0 +1,19 @@
+/*
+ * Copyright (c) 2010 Kevin Decker (http://www.incaseofstairs.com/)
+ * See LICENSE for license information
+ */
+
+/* Standalone Specific CSS */
+body.borderGenerator > div {
+    background-color: teal;
+    -moz-border-radius: 25px;
+    -webkit-border-radius: 25px;
+    border-radius: 25px;
+}
+body.borderGenerator > h1 {
+    color: teal;
+}
+body.borderGenerator,
+body.borderGenerator a {
+    color: white;
+}

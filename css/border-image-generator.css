@@ -2,35 +2,31 @@
  * Copyright (c) 2010 Kevin Decker (http://www.incaseofstairs.com/)
  * See LICENSE for license information
  */
-body > div {
-    background-color: teal;
-    -moz-border-radius: 25px;
-    -webkit-border-radius: 25px;
-    border-radius: 25px;
+.borderGenerator > div {
     padding: 10px;
     margin: 10px 0px;
     overflow: hidden;
 }
 
-label {
+.borderGenerator label {
     float: left;
     width: 10em;
     text-align: right;
 }
 
-input[type="text"] {
+.borderGenerator input[type="text"] {
     width: 300px;
     margin-left: 0.6em;
 }
 
-body > div > h2 {
+.borderGenerator > div > h2 {
     margin: 0px;
     padding: 0px;
     color: white;
     display: inline-block;
 }
 
-.setupSection > div {
+.borderGenerator .setupSection > div {
     padding: 5px 0px;
 }
 
@@ -62,7 +58,7 @@ body > div > h2 {
     height: 100%;
 }
 
-.divider {
+.borderGenerator .divider {
     background-color: red;
     opacity: 0.8;
     cursor: move;
@@ -72,34 +68,37 @@ body > div > h2 {
     height: 2px;
 }
 
-.top-divider, .bottom-divider {
+.borderGenerator .top-divider,
+.borderGenerator .bottom-divider {
     width: 100%;
     left: 0px;
 }
-.top-divider {
+.borderGenerator .top-divider {
     top: 0px;
 }
-.bottom-divider {
+.borderGenerator .bottom-divider {
     bottom: 0px;
 }
 
-.left-divider, .right-divider {
+.borderGenerator .left-divider,
+.borderGenerator .right-divider {
     top: 0px;
     height: 100%;
 }
-.left-divider {
+.borderGenerator .left-divider {
     left: 0px;
 }
-.right-divider {
+.borderGenerator .right-divider {
     right: 0px;
 }
 
-.slider {
+.borderGenerator .slider {
     display: inline-block;
     width: 200px;
     margin: 0 0.6em;
 }
 
-.ui-icon {
+.borderGenerator .ui-icon {
+    background-image: url(http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/themes/ui-lightness/images/ui-icons_ffffff_256x240.png);
     display: inline-block;
 }
