@@ -10,14 +10,20 @@ $(document).ready(function() {
         dividers = $(".divider"),
         sliders = $(".slider"),
         cssEl = $("#cssEl"),
+        fit = $(".fit"),
 
         validImage = false,
 
         state = {
             src: "",
+
             linkBorder: true,
             borderWidth: [0, 0, 0, 0],
             imageOffset: [0, 0, 0, 0],
+
+            setFit: false,
+            fit: ["repeat", "repeat"],      // Default per w3c. Does not match implementation
+
             scaleFactor: 3
         };
 
@@ -48,7 +54,10 @@ $(document).ready(function() {
             setValue: function(el) { state.imageOffset[3] = calcPixels($(el).position().left) },
             updatePos: function(el) { $(el).css("left", state.imageOffset[3]*state.scaleFactor); }
         },
-    }
+    }, fitMap = {
+        fitVertical: { index: 0 },
+        fitHorizontal: { index: 1 },
+    };
     
     function calcPixels(pos) {
         return (pos / state.scaleFactor) | 0;
@@ -64,11 +73,18 @@ $(document).ready(function() {
             dividerMap[el.id].updatePos(el);
         });
     }
+    function updateFit() {
+        fit.each(function(index, el) {
+            var map = fitMap[el.id];
+            $(el).val(state.fit[map.index]);
+        })
+    }
     function updateHash() {
         HistoryHandler.store(JSON.stringify(state));
     }
     function updateCSS() {
-        var borderImage = "", borderWidthStr = "", style = "";
+        var borderImage = "", borderWidthStr = "", style = "",
+            fitStr = state.setFit ? state.fit.join(" ") : "";
         
         if (validImage) {
             var img = "url(" + pathToImage.val() + ")",
@@ -78,14 +94,15 @@ $(document).ready(function() {
             borderImage = img + " " + imageOffset.join(" ");
             borderWidthStr = borderWidth.join("px ") + "px";
             style = "border-width: " + borderWidthStr + ";\n"
-                + "-moz-border-image: " + borderImage + ";\n"
+                + "-moz-border-image: " + borderImage + " " + fitStr + ";\n"
                 + "-webkit-border-image: " + borderImage + ";\n"
-                + "border-image: " + borderImage + ";";
+                + "border-image: " + borderImage + ";\n"
+                + (state.setFit ? "border-fit: " + fitStr + ";\n" : "");
         }
 
         $("#cssEl").html(style)
                 .css("border-width", borderWidthStr)
-                .css("-moz-border-image", borderImage)
+                .css("-moz-border-image", borderImage + " " + fitStr)
                 .css("-webkit-border-image", borderImage)
                 .css("border-image", borderImage);
     }
@@ -117,6 +134,13 @@ $(document).ready(function() {
     dividers.filter(":even").draggable("option", "axis", "y");
     dividers.filter(":odd").draggable("option", "axis", "x");
 
+    fit.change(function() {
+        var map = fitMap[this.id];
+        state.fit[map.index] = $(this).val();
+        updateCSS();
+        updateHash();
+    })
+
     imageEl.load(function() {
         var img = this,
             width = img.naturalWidth*state.scaleFactor,
@@ -147,6 +171,7 @@ $(document).ready(function() {
         imageEl[0].src = state.src;
     });
 
+    // TODO : Check to see what sort of cool options jQuery allows for unifying some of this functionality
     $("#borderOptionsExpander").toggle(
         function() {
             $("#borderOptionsExpander > span").removeClass("ui-icon-triangle-1-e").addClass("ui-icon-triangle-1-s");
@@ -162,6 +187,22 @@ $(document).ready(function() {
             updateCSS();
             updateHash();
         });
+    $("#fitOptionsExpander").toggle(
+        function() {
+            $("#fitOptionsExpander > span").removeClass("ui-icon-triangle-1-e").addClass("ui-icon-triangle-1-s");
+            $("#fitOptions").show();
+            state.setFit = true;
+            updateCSS();
+            updateHash();
+        },
+        function() {
+            $("#fitOptionsExpander > span").removeClass("ui-icon-triangle-1-s").addClass("ui-icon-triangle-1-e");
+            $("#fitOptions").hide();
+            state.setFit = false;
+            updateCSS();
+            updateHash();
+        });
+
     editorEl.resizable({
         reverseXAxis: true,
         handles: "s, w, sw",
@@ -182,10 +223,13 @@ $(document).ready(function() {
         var prevScale = state.scaleFactor;
 
         if (hash) {
-            state = JSON.parse(hash);
+            $.extend(state, JSON.parse(hash));
         }
         if ($("#borderOptions").is(":visible") === state.linkBorder) {
             $("#borderOptionsExpander").click();
+        }
+        if ($("#fitOptions").is(":visible") !== state.setFit) {
+            $("#fitOptionsExpander").click();
         }
 
         if (imageEl[0].src !== state.src) {
@@ -199,5 +243,7 @@ $(document).ready(function() {
             updateDividers();
             updateCSS();
         }
+
+        updateFit();
     });
 });
