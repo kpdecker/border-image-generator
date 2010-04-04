@@ -9,6 +9,9 @@ $(document).ready(function() {
         imageEl = $("#imageEl"),
         dividers = $(".divider"),
         sliders = $(".slider"),
+        cssEl = $("#cssEl"),
+
+        validImage = false,
 
         state = {
             src: "",
@@ -65,15 +68,20 @@ $(document).ready(function() {
         HistoryHandler.store(JSON.stringify(state));
     }
     function updateCSS() {
-        var img = "url(" + pathToImage.val() + ")",
-            imageOffset = state.imageOffset,
-            borderWidth = state.linkBorder ? state.imageOffset : state.borderWidth,
-            borderImage = img + " " + imageOffset.join(" "),
-            borderWidthStr = borderWidth.join("px ") + "px",
+        var borderImage = "", borderWidthStr = "", style = "";
+        
+        if (validImage) {
+            var img = "url(" + pathToImage.val() + ")",
+                imageOffset = state.imageOffset,
+                borderWidth = state.linkBorder ? state.imageOffset : state.borderWidth;
+
+            borderImage = img + " " + imageOffset.join(" ");
+            borderWidthStr = borderWidth.join("px ") + "px";
             style = "border-width: " + borderWidthStr + ";\n"
                 + "-moz-border-image: " + borderImage + ";\n"
                 + "-webkit-border-image: " + borderImage + ";\n"
                 + "border-image: " + borderImage + ";";
+        }
 
         $("#cssEl").html(style)
                 .css("border-width", borderWidthStr)
@@ -118,6 +126,8 @@ $(document).ready(function() {
         state.src = img.src;
 
         editorEl.width(width).height(height);
+        editorEl.show();
+        validImage = true;
 
         sliders.filter(":odd").slider("option", "max", img.naturalWidth);
         sliders.filter(":even").slider("option", "max", img.naturalHeight);
@@ -125,7 +135,13 @@ $(document).ready(function() {
         updateDividers();
         updateCSS();
         updateHash();
-    })
+    });
+    imageEl.error(function() {
+        editorEl.hide();
+        validImage = false;
+
+        updateCSS();
+    });
     pathToImage.change(function(event) {
         state.src = pathToImage.val();
         imageEl[0].src = state.src;
