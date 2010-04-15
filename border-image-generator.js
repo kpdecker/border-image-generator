@@ -23,7 +23,7 @@ $(document).ready(function() {
             imageOffset: [27, 27, 27, 27],
 
             setRepat: false,
-            repeat: ["stetch", "stretch"],
+            repeat: ["repeat", "repeat"],
 
             scaleFactor: 3
         };
