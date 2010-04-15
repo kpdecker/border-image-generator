@@ -6,7 +6,7 @@ var HistoryHandler = (function() {
 	var currentHash, callbackFn;
 
 	function loadHash() {
-		return decodeURIComponent(/#(.*)$/.exec((location.href || []))[1] || "");
+		return decodeURIComponent((/#(.*)$/.exec(location.href) || [])[1] || "");
 	}
 	function checkHistory(){
 		var hashValue = loadHash();
