@@ -14,10 +14,10 @@ $(document).ready(function() {
         validImage = false,
 
         state = {
-            src: "",
+            src: "http://www.w3.org/TR/css3-background/border.png",
             linkBorder: true,
             borderWidth: [0, 0, 0, 0],
-            imageOffset: [0, 0, 0, 0],
+            imageOffset: [27, 27, 27, 27],
             scaleFactor: 3
         };
 
