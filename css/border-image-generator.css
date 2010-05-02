@@ -2,11 +2,6 @@
  * Copyright (c) 2010 Kevin Decker (http://www.incaseofstairs.com/)
  * See LICENSE for license information
  */
-.borderGenerator > div {
-    padding: 10px;
-    margin: 10px 0px;
-    overflow: hidden;
-}
 
 .borderGenerator label {
     float: left;

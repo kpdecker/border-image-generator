@@ -4,16 +4,74 @@
  */
 
 /* Standalone Specific CSS */
-body.borderGenerator > div {
-    background-color: teal;
-    -moz-border-radius: 25px;
-    -webkit-border-radius: 25px;
-    border-radius: 25px;
+body.borderGenerator {
+  background-color: #83ADC8;
+  font-size: 9pt;
+  font-family: trebuchet ms,arial,helvetica,sans-serif;
+  margin: 0;
 }
-body.borderGenerator > h1 {
-    color: teal;
+body.borderGenrator > div {
+  margin: 0px;
+  padding: 0px;
 }
 body.borderGenerator,
 body.borderGenerator a {
     color: white;
 }
+
+body.borderGenerator > .wrapper {
+  margin: 0px auto;
+  padding: 0;
+  background-color: #131F27;
+
+  width: 960px;
+}
+
+body.borderGenerator .header {
+  background-color: black;
+  margin: 20px 0 0;
+}
+
+body.borderGenerator > .wrapper,
+body.borderGenerator > .wrapper > .header {
+  -moz-border-radius: 10px 10px 0px 0px;
+  -webkit-border-radius: 10px 10px 0px 0px;
+  border-radius: 10px 10px 0px 0px;
+}
+
+body.borderGenerator .header > h1 {
+  margin: 0;
+  padding: 5px 15px;
+
+  font-size: 15pt;
+  font-weight: normal;
+  letter-spacing: -2px;
+}
+
+body.borderGenerator .content,
+body.borderGenerator .css {
+  margin: 5px 15px 0px;
+  overflow: hidden;
+}
+
+body.borderGenerator .css {
+  margin-bottom: 5px;
+}
+
+body.borderGenerator .footer {
+  background-color: black;
+  padding: 10px 25px;
+  clear: both;
+  overflow: auto;
+}
+body.borderGenerator .footer > .left {
+  float: left;
+}
+body.borderGenerator .footer > .right {
+  float: right;
+}
+body.borderGenerator .footer > div > a {
+  color: #6598B8;
+  text-decoration: none;
+}
+
