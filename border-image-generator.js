@@ -10,7 +10,7 @@ $(document).ready(function() {
         dividers = $(".divider"),
         sliders = $(".slider"),
         cssEl = $("#cssEl"),
-        fit = $(".fit"),
+        repeat = $(".repeat"),
 
         validImage = false,
         naturalSize = {},
@@ -22,8 +22,8 @@ $(document).ready(function() {
             borderWidth: [0, 0, 0, 0],
             imageOffset: [27, 27, 27, 27],
 
-            setFit: false,
-            fit: ["repeat", "repeat"],      // Default per w3c. Does not match implementation
+            setRepat: false,
+            repeat: ["stetch", "stretch"],
 
             scaleFactor: 3
         };
@@ -55,9 +55,9 @@ $(document).ready(function() {
             setValue: function(el) { state.imageOffset[3] = calcPixels($(el).position().left) },
             updatePos: function(el) { $(el).css("left", state.imageOffset[3]*state.scaleFactor); }
         },
-    }, fitMap = {
-        fitVertical: { index: 0 },
-        fitHorizontal: { index: 1 },
+    }, repeatMap = {
+        repeatVertical: { index: 0 },
+        repeatHorizontal: { index: 1 },
     };
     
     function calcPixels(pos) {
@@ -74,10 +74,10 @@ $(document).ready(function() {
             dividerMap[el.id].updatePos(el);
         });
     }
-    function updateFit() {
-        fit.each(function(index, el) {
-            var map = fitMap[el.id];
-            $(el).val(state.fit[map.index]);
+    function updateRepeat() {
+        repeat.each(function(index, el) {
+            var map = repeatMap[el.id];
+            $(el).val(state.repeat[map.index]);
         })
     }
     function updateHash() {
@@ -85,7 +85,7 @@ $(document).ready(function() {
     }
     function updateCSS() {
         var borderImage = "", borderWidthStr = "", style = "",
-            fitStr = state.setFit ? state.fit.join(" ") : "";
+            repeatStr = state.setRepeat ? " " + state.repeat.join(" ") : "";
         
         if (validImage) {
             var img = "url(" + pathToImage.val() + ")",
@@ -95,17 +95,16 @@ $(document).ready(function() {
             borderImage = img + " " + imageOffset.join(" ");
             borderWidthStr = borderWidth.join("px ") + "px";
             style = "border-width: " + borderWidthStr + ";\n"
-                + "-moz-border-image: " + borderImage + " " + fitStr + ";\n"
-                + "-webkit-border-image: " + borderImage + ";\n"
-                + "border-image: " + borderImage + ";\n"
-                + (state.setFit ? "border-fit: " + fitStr + ";\n" : "");
+                + "-moz-border-image: " + borderImage + repeatStr + ";\n"
+                + "-webkit-border-image: " + borderImage + repeatStr + ";\n"
+                + "border-image: " + borderImage + repeatStr + ";\n";
         }
 
         $("#cssEl").html(style)
                 .css("border-width", borderWidthStr)
-                .css("-moz-border-image", borderImage + " " + fitStr)
-                .css("-webkit-border-image", borderImage)
-                .css("border-image", borderImage);
+                .css("-moz-border-image", borderImage + repeatStr)
+                .css("-webkit-border-image", borderImage + repeatStr)
+                .css("border-image", borderImage + repeatStr);
     }
 
     sliders.slider({
@@ -135,12 +134,12 @@ $(document).ready(function() {
     dividers.filter(":even").draggable("option", "axis", "y");
     dividers.filter(":odd").draggable("option", "axis", "x");
 
-    fit.change(function() {
-        var map = fitMap[this.id];
-        state.fit[map.index] = $(this).val();
+    repeat.change(function() {
+        var map = repeatMap[this.id];
+        state.repeat[map.index] = $(this).val();
         updateCSS();
         updateHash();
-    })
+    });
 
     imageEl.load(function() {
         var img = this,
@@ -181,30 +180,15 @@ $(document).ready(function() {
         imageEl[0].src = state.src;
     });
 
-    $("#borderOptionsExpander").expander(
-        "#borderOptions",
-        function() {
-            state.linkBorder = false;
+    function setFlag(name, value) {
+        return function() {
+            state[name] = value;
             updateCSS();
             updateHash();
-        },
-        function() {
-            state.linkBorder = true;
-            updateCSS();
-            updateHash();
-        });
-    $("#fitOptionsExpander").expander(
-        "#fitOptions",
-        function() {
-            state.setFit = true;
-            updateCSS();
-            updateHash();
-        },
-        function() {
-            state.setFit = false;
-            updateCSS();
-            updateHash();
-        });
+        };
+    }
+    $("#borderOptionsExpander").expander("#borderOptions", setFlag("linkBorder", false), setFlag("linkBorder", true));
+    $("#repeatOptionsExpander").expander("#repeatOptions", setFlag("setRepeat", true), setFlag("setRepeat", false));
 
     editorEl.resizable({
         reverseXAxis: true,
@@ -238,8 +222,8 @@ $(document).ready(function() {
         if ($("#borderOptions").is(":visible") === state.linkBorder) {
             $("#borderOptionsExpander").click();
         }
-        if ($("#fitOptions").is(":visible") !== state.setFit) {
-            $("#fitOptionsExpander").click();
+        if ($("#repeatOptions").is(":visible") !== state.setRepeat) {
+            $("#repeatOptionsExpander").click();
         }
 
         if (imageEl[0].src !== state.src) {
@@ -254,6 +238,6 @@ $(document).ready(function() {
             updateCSS();
         }
 
-        updateFit();
+        updateRepeat();
     });
 });
