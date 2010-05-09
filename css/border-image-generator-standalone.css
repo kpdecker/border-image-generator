@@ -4,6 +4,11 @@
  */
 
 /* Standalone Specific CSS */
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
 body.borderGenerator {
   background-color: #83ADC8;
   font-size: 9pt;
@@ -14,8 +19,7 @@ body.borderGenrator > div {
   margin: 0px;
   padding: 0px;
 }
-body.borderGenerator,
-body.borderGenerator a {
+body.borderGenerator {
     color: white;
 }
 
@@ -40,12 +44,18 @@ body.borderGenerator > .wrapper > .header {
 }
 
 body.borderGenerator .header > h1 {
+  display: inline-block;
+
   margin: 0;
   padding: 5px 15px;
 
   font-size: 15pt;
   font-weight: normal;
   letter-spacing: -2px;
+}
+body.borderGenerator .header > .toggleStyle {
+  float: right;
+  padding: 10px 5px;
 }
 
 body.borderGenerator .content,
@@ -70,8 +80,21 @@ body.borderGenerator .footer > .left {
 body.borderGenerator .footer > .right {
   float: right;
 }
+body.borderGenerator .header > a,
 body.borderGenerator .footer > div > a {
   color: #6598B8;
-  text-decoration: none;
 }
 
+/* Light Styles */
+body.borderGenerator.light > .wrapper {
+    background-color: #ECE0D8;
+}
+
+body.borderGenerator.light .content,
+body.borderGenerator.light .css {
+    color: black;
+}
+
+body.borderGenerator.light #editorEl {
+    border: 2px solid black;
+}

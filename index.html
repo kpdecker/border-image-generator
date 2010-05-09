@@ -8,13 +8,17 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>border-image-generator</title>
-    <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/themes/ui-lightness/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/themes/ui-darkness/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/themes/ui-lightness/jquery-ui.css" id="lightnessStyle">
     <link rel="stylesheet" type="text/css" href="css/border-image-generator.css">
     <link rel="stylesheet" type="text/css" href="css/border-image-generator-standalone.css">
 </head>
 <body class="borderGenerator">
     <div class="wrapper">
-    <div class="header"><h1>border-image-generator</h1></div>
+    <div class="header">
+        <h1>border-image-generator</h1>
+        <a class="toggleStyle" href="#">[toggle style]</a>
+    </div>
     <div class="content">
         <h2>Editor</h2>
         <div id="editorEl" style="display: none">

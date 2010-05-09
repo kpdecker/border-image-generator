@@ -188,6 +188,13 @@ $(document).ready(function() {
         }
     });
 
+    $(".toggleStyle").click(function(event) {
+        $("body").toggleClass("light");
+        var lightness = $("#lightnessStyle");
+        lightness[0].disabled = !lightness[0].disabled;
+        event.preventDefault();
+    });
+
     HistoryHandler.init(function(hash) {
         var prevScale = state.scaleFactor;
 
