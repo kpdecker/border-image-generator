@@ -49,31 +49,27 @@
         </div>
 
         <div>
-            <div id="fitOptionsExpander">
+            <div id="repeatOptionsExpander">
                 <span class="ui-icon ui-icon-triangle-1-e"></span>
-                <a href="#">Border Fit</a>
+                <a href="#">Border Repeat</a>
             </div>
-            <div id="fitOptions" class="setupSection" style="display: none">
+            <div id="repeatOptions" class="setupSection" style="display: none">
+                <!-- SPEC: The spec also defined a Space option, but no browser currently supports this so leaving this out... -->
                 <div>
-                    <label for="fitVertical">Vertical Fit:</label>
-                    <select id="fitVertical" class="fit">
-                        <option value="clip">Clip</option>
+                    <label for="repeatVertical">Vertical Repeat:</label>
+                    <select id="repeatVertical" class="repeat">
+                        <option value="stretch">Stretch</option>
                         <option value="repeat">Repeat</option>
-                        <option value="scale">Scale</option>
-                        <option value="stretch">Strech</option>
-                        <option value="overwrite">Overwrite</option>
-                        <option value="space">Space</option>
+                        <option value="round">Round</option>
                     </select>
+                    <span id="warnRepeatVert" class="warning"></span>
                 </div>
                 <div>
-                    <label for="fitHorizontal">Horizontal Fit:</label>
-                    <select id="fitHorizontal" class="fit">
-                        <option value="clip">Clip</option>
+                    <label for="repeatHorizontal">Horizontal Repeat:</label>
+                    <select id="repeatHorizontal" class="repeat">
+                        <option value="stretch">Stretch</option>
                         <option value="repeat">Repeat</option>
-                        <option value="scale">Scale</option>
-                        <option value="stretch">Strech</option>
-                        <option value="overwrite">Overwrite</option>
-                        <option value="space">Space</option>
+                        <option value="round">Round</option>
                     </select>
                 </div>
             </div>
