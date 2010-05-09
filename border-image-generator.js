@@ -181,33 +181,26 @@ $(document).ready(function() {
         imageEl[0].src = state.src;
     });
 
-    // TODO : Check to see what sort of cool options jQuery allows for unifying some of this functionality
-    $("#borderOptionsExpander").toggle(
+    $("#borderOptionsExpander").expander(
+        "#borderOptions",
         function() {
-            $("#borderOptionsExpander > span").removeClass("ui-icon-triangle-1-e").addClass("ui-icon-triangle-1-s");
-            $("#borderOptions").show();
             state.linkBorder = false;
             updateCSS();
             updateHash();
         },
         function() {
-            $("#borderOptionsExpander > span").removeClass("ui-icon-triangle-1-s").addClass("ui-icon-triangle-1-e");
-            $("#borderOptions").hide();
             state.linkBorder = true;
             updateCSS();
             updateHash();
         });
-    $("#fitOptionsExpander").toggle(
+    $("#fitOptionsExpander").expander(
+        "#fitOptions",
         function() {
-            $("#fitOptionsExpander > span").removeClass("ui-icon-triangle-1-e").addClass("ui-icon-triangle-1-s");
-            $("#fitOptions").show();
             state.setFit = true;
             updateCSS();
             updateHash();
         },
         function() {
-            $("#fitOptionsExpander > span").removeClass("ui-icon-triangle-1-s").addClass("ui-icon-triangle-1-e");
-            $("#fitOptions").hide();
             state.setFit = false;
             updateCSS();
             updateHash();
