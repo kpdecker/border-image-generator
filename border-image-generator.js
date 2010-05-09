@@ -12,6 +12,7 @@ $(document).ready(function() {
         cssEl = $("#cssEl"),
 
         validImage = false,
+        naturalSize = {},
 
         state = {
             src: "http://www.w3.org/TR/css3-background/border.png",
@@ -119,8 +120,15 @@ $(document).ready(function() {
 
     imageEl.load(function() {
         var img = this,
-            width = img.naturalWidth*state.scaleFactor,
-            height = img.naturalHeight*state.scaleFactor;
+            natWidth = img.naturalWidth || img.width,
+            natHeight = img.naturalHeight || img.height,
+            width = natWidth*state.scaleFactor,
+            height = natHeight*state.scaleFactor;
+
+        naturalSize = {
+            width: natWidth,
+            height: natHeight
+        };
 
         // Correct for any HTTP escaping issues in the input
         state.src = img.src;
@@ -129,8 +137,8 @@ $(document).ready(function() {
         editorEl.show();
         validImage = true;
 
-        sliders.filter(":odd").slider("option", "max", img.naturalWidth);
-        sliders.filter(":even").slider("option", "max", img.naturalHeight);
+        sliders.filter(":odd").slider("option", "max", natWidth);
+        sliders.filter(":even").slider("option", "max", natHeight);
         updateSliders();
         updateDividers();
         updateCSS();
@@ -143,6 +151,8 @@ $(document).ready(function() {
         updateCSS();
     });
     pathToImage.change(function(event) {
+        // Clear the frame size so Opera can scale the editor down if the new image is smaller than the last
+        editorEl.width("auto").height("auto");
         state.src = pathToImage.val();
         imageEl[0].src = state.src;
     });
@@ -167,7 +177,7 @@ $(document).ready(function() {
         handles: "s, w, sw",
         aspectRatio: true,
         resize: function() {
-            state.scaleFactor = editorEl.innerWidth() / imageEl[0].naturalWidth;
+            state.scaleFactor = editorEl.innerWidth() / naturalSize.width;
 
             updateSliders();
             updateDividers();
