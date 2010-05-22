@@ -56,8 +56,8 @@ $(document).ready(function() {
             updatePos: function(el) { $(el).css("left", state.imageOffset[3]*state.scaleFactor); }
         },
     }, repeatMap = {
-        repeatVertical: { index: 0 },
-        repeatHorizontal: { index: 1 },
+        repeatVertical: { index: 1 },
+        repeatHorizontal: { index: 0 },
     };
     
     function calcPixels(pos) {
