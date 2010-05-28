@@ -101,7 +101,7 @@ $(document).ready(function() {
             repeatStr = state.setRepeat ? " " + joinValues(state.repeat) : "";
         
         if (validImage) {
-            var img = "url(" + pathToImage.val() + ")",
+            var img = "url(" + ImageList.getDisplayName() + ")",
                 imageOffset = state.imageOffset,
                 borderWidth = state.linkBorder ? state.imageOffset : state.borderWidth;
 
@@ -111,6 +111,8 @@ $(document).ready(function() {
                 + "-moz-border-image: " + borderImage + repeatStr + ";\n"
                 + "-webkit-border-image: " + borderImage + repeatStr + ";\n"
                 + "border-image: " + borderImage + repeatStr + ";\n";
+
+            borderImage = "url(" + ImageList.getSrc() + ") " + joinValues(imageOffset);
         }
 
         $("#cssEl").html(style)
@@ -154,6 +156,7 @@ $(document).ready(function() {
         updateHash();
     });
 
+    ImageList.setEl(imageEl[0]);
     imageEl.load(function() {
         var img = this,
             natWidth = img.naturalWidth || img.width,
@@ -174,7 +177,7 @@ $(document).ready(function() {
         };
 
         // Correct for any HTTP escaping issues in the input
-        state.src = img.src;
+        state.src = ImageList.getCurEntry();
 
         editorEl.width(width).height(height);
         editorEl.show();
@@ -196,8 +199,7 @@ $(document).ready(function() {
     pathToImage.change(function(event) {
         // Clear the frame size so Opera can scale the editor down if the new image is smaller than the last
         editorEl.width("auto").height("auto");
-        state.src = pathToImage.val();
-        imageEl[0].src = state.src;
+        ImageList.load(pathToImage.val());
     });
 
     function setFlag(name, value) {
