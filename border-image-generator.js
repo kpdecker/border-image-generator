@@ -161,6 +161,13 @@ $(document).ready(function() {
             width = natWidth*state.scaleFactor,
             height = natHeight*state.scaleFactor;
 
+        // Ensure that the initial scale for the image is always smaller that the size of the screen
+        if (width > window.innerWidth || height > window.innerHeight) {
+            state.scaleFactor = Math.min(window.innerWidth/width, window.innerHeight/height);
+            width = natWidth*state.scaleFactor;
+            height = natHeight*state.scaleFactor;
+        }
+
         naturalSize = {
             width: natWidth,
             height: natHeight
