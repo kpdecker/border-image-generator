@@ -2,7 +2,6 @@
  * Copyright (c) 2010 Kevin Decker (http://www.incaseofstairs.com/)
  * See LICENSE for license information
  */
-// TODO : Optimize output
 $(document).ready(function() {
     var pathToImage = $("#pathToImage"),
         editorEl = $("#editorEl"),
@@ -83,17 +82,31 @@ $(document).ready(function() {
     function updateHash() {
         HistoryHandler.store(JSON.stringify(state));
     }
+    function joinValues(values, join) {
+        var ret = [];
+        if (values[3] && values[3] !== values[1]) {
+            ret.unshift(values[3]);
+        }
+        if (ret.length || (values[2] && values[2] !== values[0])) {
+            ret.unshift(values[2]);
+        }
+        if (ret.length || (values[1] && values[1] !== values[0])) {
+            ret.unshift(values[1]);
+        }
+        ret.unshift(values[0]);
+        return ret.join(join || " ");
+    }
     function updateCSS() {
         var borderImage = "", borderWidthStr = "", style = "",
-            repeatStr = state.setRepeat ? " " + state.repeat.join(" ") : "";
+            repeatStr = state.setRepeat ? " " + joinValues(state.repeat) : "";
         
         if (validImage) {
             var img = "url(" + pathToImage.val() + ")",
                 imageOffset = state.imageOffset,
                 borderWidth = state.linkBorder ? state.imageOffset : state.borderWidth;
 
-            borderImage = img + " " + imageOffset.join(" ");
-            borderWidthStr = borderWidth.join("px ") + "px";
+            borderImage = img + " " + joinValues(imageOffset);
+            borderWidthStr = joinValues(borderWidth, "px ") + "px";
             style = "border-width: " + borderWidthStr + ";\n"
                 + "-moz-border-image: " + borderImage + repeatStr + ";\n"
                 + "-webkit-border-image: " + borderImage + repeatStr + ";\n"
