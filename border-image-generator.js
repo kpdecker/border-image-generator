@@ -241,10 +241,9 @@ $(document).ready(function() {
             $("#repeatOptionsExpander").click();
         }
 
-        if (imageEl[0].src !== state.src) {
+        if (ImageList.getCurEntry() !== state.src) {
             // The other values will update when the image loads
-            pathToImage.val(state.src);
-            pathToImage.change();
+            ImageList.load(state.src);
         } else if (prevScale !== state.scaleFactor) {
             imageEl.load();
         } else {
