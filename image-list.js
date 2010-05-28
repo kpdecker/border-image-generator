@@ -5,9 +5,9 @@ var ImageList;
         image;
 
     ImageList = {
-        getCurEntry: function() { return cache[curEntry].entryId; },
-        getDisplayName: function() { return cache[curEntry].displayName; },
-        getSrc: function() { return cache[curEntry].src },
+        getCurEntry: function() { return cache[curEntry] && cache[curEntry].entryId; },
+        getDisplayName: function() { return cache[curEntry] && cache[curEntry].displayName; },
+        getSrc: function() { return cache[curEntry] && cache[curEntry].src },
 
         setEl: function(el) {
             image = el;
