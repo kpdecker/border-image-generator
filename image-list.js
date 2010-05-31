@@ -66,11 +66,18 @@ var ImageList;
             image = el;
         },
 
-        load: function(file) {
+        load: function(file, onError) {
+            // the file from the session store if that is the case
             if (typeof file === "string") {
                 var match = /^page-store:\/\/(.*)$/.exec(file);
                 if (this.isLocalSupported() && match) {
                     curEntry = localDataBinding.getImage(match[1]);
+                    if (!curEntry) {
+                        // We could not find the cache data. This could be due to a refresh in the local case,
+                        // or due to someone attempting to paste a URL that uses a local reference.
+                        onError && onError(FileError.NOT_FOUND_ERR);
+                        return;
+                    }
                     curEntry.entryId = "page-store://" + match[1];
                 } else {
                     curEntry = { entryId: file, src: file, displayName: file };
@@ -84,7 +91,12 @@ var ImageList;
                     curEntry.entryId = "page-store://" + entryId;
                     image.src = ImageList.getSrc();
                 };
+                reader.onerror = function(event) {
+                    onError && onError(reader.error);
+                };
                 reader.readAsDataURL(file);
+            } else {
+                onError && onError(FileError.NOT_READABLE_ERR);
             }
         },
     };

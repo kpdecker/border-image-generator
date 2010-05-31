@@ -181,6 +181,8 @@ $(document).ready(function() {
 
         editorEl.width(width).height(height);
         editorEl.show();
+
+        $(".errorMsg").hide();
         validImage = true;
 
         sliders.filter(":odd").slider("option", "max", natWidth);
@@ -190,16 +192,32 @@ $(document).ready(function() {
         updateCSS();
         updateHash();
     });
-    imageEl.error(function() {
+    
+    function errorHandler(code) {
+        var msg;
+        if (code === FileError.NOT_FOUND_ERR) {
+            msg = "Unable to find image. This may be due to an incorrect path name or a local file that has not been properly loaded.";
+        } else if (code) {
+            msg = "Failed to load image. Error code: " + code;
+        } else {
+            msg = "Unknown error occured loading image " + ImageList.getDisplayName();
+        }
+
+        // Only show the message if the user as attempted to load an image
+        if (ImageList.getCurEntry()) {
+            $(".errorMsg").html("*** " + msg).show();
+        }
+
         editorEl.hide();
         validImage = false;
 
         updateCSS();
-    });
+    }
+    imageEl.error(function() { errorHandler(); });
     pathToImage.change(function(event) {
         // Clear the frame size so Opera can scale the editor down if the new image is smaller than the last
         editorEl.width("auto").height("auto");
-        ImageList.load(pathToImage.val());
+        ImageList.load(pathToImage.val(), errorHandler);
     });
 
     function setFlag(name, value) {
@@ -240,12 +258,12 @@ $(document).ready(function() {
             var dataTransfer = event.originalEvent.dataTransfer,
                 file = dataTransfer.files[0];
 
-            ImageList.load(file);
+            ImageList.load(file, errorHandler);
         });
         $("#localImage").bind("change", function(event) {
             var file = this.files[0];
 
-            ImageList.load(file);
+            ImageList.load(file, errorHandler);
         });
     } else {
         $("body").addClass("no-local");
@@ -266,7 +284,7 @@ $(document).ready(function() {
 
         if (ImageList.getCurEntry() !== state.src) {
             // The other values will update when the image loads
-            ImageList.load(state.src);
+            ImageList.load(state.src, errorHandler);
         } else if (prevScale !== state.scaleFactor) {
             imageEl.load();
         } else {

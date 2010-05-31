@@ -107,6 +107,11 @@
     display: inline-block;
 }
 
+.errorMsg {
+    color: red;
+    padding: 10px;
+}
+
 .no-local .localDependent {
     display: none;
 }
