@@ -1,5 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
-   "http://www.w3.org/TR/html4/strict.dtd">
+<!DOCTYPE html>
 <!--
  Copyright (c) 2010 Kevin Decker (http://www.incaseofstairs.com/)
  See LICENSE for license information
@@ -13,7 +12,7 @@
     <link rel="stylesheet" type="text/css" href="css/border-image-generator.css">
     <link rel="stylesheet" type="text/css" href="css/border-image-generator-standalone.css">
 </head>
-<body class="borderGenerator">
+<body class="borderGenerator no-local">
     <div class="wrapper">
     <div class="header">
         <h1>border-image-generator</h1>
@@ -32,10 +31,11 @@
         </div>
 
         <div>
-            <label for="pathToImage">Path to Image:</label><input type="text" id="pathToImage">
-        </div>
-        <div class="localDependent">
-            <label for="localImage">Local Image:</label><input type="file" id="localImage">
+            <label for="pathToImage">Image:</label><input type="text" id="pathToImage">
+            <span class="fileInput localDependent">
+                <input type="button" value="Browse...">
+                <input type="file" accept="image/*" id="localImage">
+            </span>
         </div>
 
         <div class="setupSection">
