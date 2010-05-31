@@ -228,6 +228,29 @@ $(document).ready(function() {
         }
     });
 
+    if (ImageList.isLocalSupported()) {
+        $("body").bind("dragenter dragover", function(event) {
+            // We have to cancel these events or we will not recieve the drop event
+            event.preventDefault();
+            event.stopPropagation();
+        });
+        $("body").bind("drop", function(event) {
+            event.preventDefault();
+            event.stopPropagation();
+            var dataTransfer = event.originalEvent.dataTransfer,
+                file = dataTransfer.files[0];
+
+            ImageList.load(file);
+        });
+        $("#localImage").bind("change", function(event) {
+            var file = this.files[0];
+
+            ImageList.load(file);
+        });
+    } else {
+        $("body").addClass("no-local");
+    }
+
     HistoryHandler.init(function(hash) {
         var prevScale = state.scaleFactor;
 

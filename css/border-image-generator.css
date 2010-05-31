@@ -19,6 +19,10 @@
     margin-left: 0.6em;
 }
 
+.borderGenerator input[type="file"] {
+    margin-left: 0.6em;
+}
+
 .borderGenerator > div > h2 {
     margin: 0px;
     padding: 0px;
@@ -101,4 +105,8 @@
 .borderGenerator .ui-icon {
     background-image: url(http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/themes/ui-lightness/images/ui-icons_ffffff_256x240.png);
     display: inline-block;
+}
+
+.no-local .localDependent {
+    display: none;
 }
