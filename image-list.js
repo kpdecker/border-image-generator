@@ -50,6 +50,9 @@ var ImageList;
     })();
 
     ImageList = {
+        NOT_FOUND: "not_found",
+        UNKNOWN_TYPE: "unknown_type",
+
         isLocalSupported: function() {
             try {
                 return !!window.FileReader;
@@ -75,7 +78,7 @@ var ImageList;
                     if (!curEntry) {
                         // We could not find the cache data. This could be due to a refresh in the local case,
                         // or due to someone attempting to paste a URL that uses a local reference.
-                        onError && onError(FileError.NOT_FOUND_ERR);
+                        onError && onError(ImageList.NOT_FOUND);
                         return;
                     }
                     curEntry.entryId = "page-store://" + match[1];
@@ -96,7 +99,7 @@ var ImageList;
                 };
                 reader.readAsDataURL(file);
             } else {
-                onError && onError(FileError.NOT_READABLE_ERR);
+                onError && onError(ImageList.UNKNOWN_TYPE);
             }
         },
     };

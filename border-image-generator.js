@@ -195,7 +195,7 @@ $(document).ready(function() {
     
     function errorHandler(code) {
         var msg;
-        if (code === FileError.NOT_FOUND_ERR) {
+        if (code === ImageList.NOT_FOUND) {
             msg = "Unable to find image. This may be due to an incorrect path name or a local file that has not been properly loaded.";
         } else if (code) {
             msg = "Failed to load image. Error code: " + code;
