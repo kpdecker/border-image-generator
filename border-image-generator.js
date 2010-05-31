@@ -266,8 +266,8 @@ $(document).ready(function() {
 
             ImageList.load(file, errorHandler);
         });
-    } else {
-        $("body").addClass("no-local");
+
+        $("body").removeClass("no-local");
     }
 
     HistoryHandler.init(function(hash) {
