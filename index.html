@@ -26,10 +26,11 @@
         </div>
 
         <div>
-            <label for="pathToImage">Path to Image:</label><input type="text" id="pathToImage">
-        </div>
-        <div class="localDependent">
-            <label for="localImage">Local Image:</label><input type="file" id="localImage">
+            <label for="pathToImage">Image:</label><input type="text" id="pathToImage">
+            <span class="fileInput localDependent">
+                <input type="button" value="Browse...">
+                <input type="file" accept="image/*" id="localImage">
+            </span>
         </div>
 
         <div class="setupSection">

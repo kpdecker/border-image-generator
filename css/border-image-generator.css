@@ -115,3 +115,22 @@
 .no-local .localDependent {
     display: none;
 }
+
+/* File Input Click Handler: See http://www.quirksmode.org/dom/inputfile.html */
+.fileInput {
+    position: relative;
+}
+
+.fileInput > input[type="button"] {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 1;
+}
+
+.fileInput > input[type='file'] {
+    position: relative;
+    text-align: right;
+    opacity: 0;
+    z-index: 2;
+}
