@@ -101,7 +101,7 @@ $(document).ready(function() {
             repeatStr = state.setRepeat ? " " + joinValues(state.repeat) : "";
         
         if (validImage) {
-            var img = "url(" + pathToImage.val() + ")",
+            var img = "url(" + ImageList.getDisplayName() + ")",
                 imageOffset = state.imageOffset,
                 borderWidth = state.linkBorder ? state.imageOffset : state.borderWidth;
 
@@ -111,6 +111,8 @@ $(document).ready(function() {
                 + "-moz-border-image: " + borderImage + repeatStr + ";\n"
                 + "-webkit-border-image: " + borderImage + repeatStr + ";\n"
                 + "border-image: " + borderImage + repeatStr + ";\n";
+
+            borderImage = "url(" + ImageList.getSrc() + ") " + joinValues(imageOffset);
         }
 
         $("#cssEl").html(style)
@@ -154,6 +156,7 @@ $(document).ready(function() {
         updateHash();
     });
 
+    ImageList.setEl(imageEl[0]);
     imageEl.load(function() {
         var img = this,
             natWidth = img.naturalWidth || img.width,
@@ -174,10 +177,12 @@ $(document).ready(function() {
         };
 
         // Correct for any HTTP escaping issues in the input
-        state.src = img.src;
+        state.src = ImageList.getCurEntry();
 
         editorEl.width(width).height(height);
         editorEl.show();
+
+        $(".errorMsg").hide();
         validImage = true;
 
         sliders.filter(":odd").slider("option", "max", natWidth);
@@ -187,17 +192,32 @@ $(document).ready(function() {
         updateCSS();
         updateHash();
     });
-    imageEl.error(function() {
+    
+    function errorHandler(code) {
+        var msg;
+        if (code === FileError.NOT_FOUND_ERR) {
+            msg = "Unable to find image. This may be due to an incorrect path name or a local file that has not been properly loaded.";
+        } else if (code) {
+            msg = "Failed to load image. Error code: " + code;
+        } else {
+            msg = "Unknown error occured loading image " + ImageList.getDisplayName();
+        }
+
+        // Only show the message if the user as attempted to load an image
+        if (ImageList.getCurEntry()) {
+            $(".errorMsg").html("*** " + msg).show();
+        }
+
         editorEl.hide();
         validImage = false;
 
         updateCSS();
-    });
+    }
+    imageEl.error(function() { errorHandler(); });
     pathToImage.change(function(event) {
         // Clear the frame size so Opera can scale the editor down if the new image is smaller than the last
         editorEl.width("auto").height("auto");
-        state.src = pathToImage.val();
-        imageEl[0].src = state.src;
+        ImageList.load(pathToImage.val(), errorHandler);
     });
 
     function setFlag(name, value) {
@@ -226,6 +246,29 @@ $(document).ready(function() {
         }
     });
 
+    if (ImageList.isLocalSupported()) {
+        $("body").bind("dragenter dragover", function(event) {
+            // We have to cancel these events or we will not recieve the drop event
+            event.preventDefault();
+            event.stopPropagation();
+        });
+        $("body").bind("drop", function(event) {
+            event.preventDefault();
+            event.stopPropagation();
+            var dataTransfer = event.originalEvent.dataTransfer,
+                file = dataTransfer.files[0];
+
+            ImageList.load(file, errorHandler);
+        });
+        $("#localImage").bind("change", function(event) {
+            var file = this.files[0];
+
+            ImageList.load(file, errorHandler);
+        });
+    } else {
+        $("body").addClass("no-local");
+    }
+
     $(".toggleStyle").click(function(event) {
         $("body").toggleClass("light");
         var lightness = $("#lightnessStyle");
@@ -246,10 +289,9 @@ $(document).ready(function() {
             $("#repeatOptionsExpander").click();
         }
 
-        if (imageEl[0].src !== state.src) {
+        if (ImageList.getCurEntry() !== state.src) {
             // The other values will update when the image loads
-            pathToImage.val(state.src);
-            pathToImage.change();
+            ImageList.load(state.src, errorHandler);
         } else if (prevScale !== state.scaleFactor) {
             imageEl.load();
         } else {
