@@ -84,13 +84,13 @@ $(document).ready(function() {
     }
     function joinValues(values, join) {
         var ret = [];
-        if (values[3] && values[3] !== values[1]) {
+        if (values[3] !== undefined && values[3] !== values[1]) {
             ret.unshift(values[3]);
         }
-        if (ret.length || (values[2] && values[2] !== values[0])) {
+        if (ret.length || (values[2] !== undefined && values[2] !== values[0])) {
             ret.unshift(values[2]);
         }
-        if (ret.length || (values[1] && values[1] !== values[0])) {
+        if (ret.length || (values[1] !== undefined && values[1] !== values[0])) {
             ret.unshift(values[1]);
         }
         ret.unshift(values[0]);
