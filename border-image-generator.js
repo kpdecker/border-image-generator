@@ -178,6 +178,7 @@ $(document).ready(function() {
 
         // Correct for any HTTP escaping issues in the input
         state.src = ImageList.getCurEntry();
+        pathToImage.val(ImageList.getDisplayName());
 
         editorEl.width(width).height(height);
         editorEl.show();
