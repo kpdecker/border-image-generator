@@ -10,11 +10,7 @@
 }
 
 .borderGenerator input[type="text"] {
-    width: 300px;
-    margin-left: 0.6em;
-}
-
-.borderGenerator input[type="file"] {
+    width: 250px;
     margin-left: 0.6em;
 }
 
