@@ -36,27 +36,27 @@ $(document).ready(function() {
         borderTop: { array: "borderWidth", index: 0 },
         borderRight: { array: "borderWidth", index: 1 },
         borderBottom: { array: "borderWidth", index: 2 },
-        borderLeft: { array: "borderWidth", index: 3 },
+        borderLeft: { array: "borderWidth", index: 3 }
     }, dividerMap = {
         dividerTop: {
-            setValue: function(el) { state.imageOffset[0] = calcPixels($(el).position().top) },
+            setValue: function(el) { state.imageOffset[0] = calcPixels($(el).position().top); },
             updatePos: function(el) { $(el).css("top", state.imageOffset[0]*state.scaleFactor); }
         },
         dividerRight: {
-            setValue: function(el) { state.imageOffset[1] = calcPixels(editorEl.innerWidth() - $(el).position().left + 2) },
+            setValue: function(el) { state.imageOffset[1] = calcPixels(editorEl.innerWidth() - $(el).position().left + 2); },
             updatePos: function(el) { $(el).css("left", (editorEl.innerWidth() - 2 - state.imageOffset[1]*state.scaleFactor)); }
         },
         dividerBottom: {
-            setValue: function(el) { state.imageOffset[2] = calcPixels(editorEl.innerHeight() - $(el).position().top + 2) },
+            setValue: function(el) { state.imageOffset[2] = calcPixels(editorEl.innerHeight() - $(el).position().top + 2); },
             updatePos: function(el) { $(el).css("top", (editorEl.innerHeight() - 2 - state.imageOffset[2]*state.scaleFactor)); }
         },
         dividerLeft: {
-            setValue: function(el) { state.imageOffset[3] = calcPixels($(el).position().left) },
+            setValue: function(el) { state.imageOffset[3] = calcPixels($(el).position().left); },
             updatePos: function(el) { $(el).css("left", state.imageOffset[3]*state.scaleFactor); }
-        },
+        }
     }, repeatMap = {
         repeatVertical: { index: 1 },
-        repeatHorizontal: { index: 0 },
+        repeatHorizontal: { index: 0 }
     };
     
     function calcPixels(pos) {
@@ -77,7 +77,7 @@ $(document).ready(function() {
         repeat.each(function(index, el) {
             var map = repeatMap[el.id];
             $(el).val(state.repeat[map.index]);
-        })
+        });
     }
     function updateHash() {
         HistoryHandler.store(JSON.stringify(state));
