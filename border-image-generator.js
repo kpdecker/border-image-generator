@@ -101,7 +101,7 @@ $(document).ready(function() {
             repeatStr = state.setRepeat ? " " + joinValues(state.repeat) : "";
         
         if (validImage) {
-            var img = "url(" + ImageList.getDisplayName() + ")",
+            var img = "url(" + UserImageCache.getDisplayName() + ")",
                 imageOffset = state.imageOffset,
                 borderWidth = state.linkBorder ? state.imageOffset : state.borderWidth;
 
@@ -112,7 +112,7 @@ $(document).ready(function() {
                 + "-webkit-border-image: " + borderImage + repeatStr + ";\n"
                 + "border-image: " + borderImage + repeatStr + ";\n";
 
-            borderImage = "url(" + ImageList.getSrc() + ") " + joinValues(imageOffset);
+            borderImage = "url(" + UserImageCache.getSrc() + ") " + joinValues(imageOffset);
         }
 
         $("#cssEl").html(style)
@@ -156,7 +156,7 @@ $(document).ready(function() {
         updateHash();
     });
 
-    ImageList.setEl(imageEl[0]);
+    UserImageCache.setImageEl(imageEl[0]);
     imageEl.load(function() {
         var img = this,
             natWidth = img.naturalWidth || img.width,
@@ -177,8 +177,8 @@ $(document).ready(function() {
         };
 
         // Correct for any HTTP escaping issues in the input
-        state.src = ImageList.getCurEntry();
-        pathToImage.val(ImageList.getDisplayName());
+        state.src = UserImageCache.getEntryId();
+        pathToImage.val(UserImageCache.getDisplayName());
 
         editorEl.width(width).height(height);
         editorEl.show();
@@ -201,11 +201,11 @@ $(document).ready(function() {
         } else if (code) {
             msg = "Failed to load image. Error code: " + code;
         } else {
-            msg = "Unknown error occured loading image " + ImageList.getDisplayName();
+            msg = "Unknown error occured loading image " + UserImageCache.getDisplayName();
         }
 
         // Only show the message if the user as attempted to load an image
-        if (ImageList.getCurEntry()) {
+        if (UserImageCache.getEntryId()) {
             $(".errorMsg").html("*** " + msg).show();
         }
 
@@ -218,7 +218,7 @@ $(document).ready(function() {
     pathToImage.change(function(event) {
         // Clear the frame size so Opera can scale the editor down if the new image is smaller than the last
         editorEl.width("auto").height("auto");
-        ImageList.load(pathToImage.val(), errorHandler);
+        UserImageCache.load(pathToImage.val(), errorHandler);
     });
 
     function setFlag(name, value) {
@@ -247,7 +247,7 @@ $(document).ready(function() {
         }
     });
 
-    if (ImageList.isLocalSupported()) {
+    if (UserImageCache.isLocalSupported()) {
         $("body").bind("dragenter dragover", function(event) {
             // We have to cancel these events or we will not recieve the drop event
             event.preventDefault();
@@ -259,12 +259,12 @@ $(document).ready(function() {
             var dataTransfer = event.originalEvent.dataTransfer,
                 file = dataTransfer.files[0];
 
-            ImageList.load(file, errorHandler);
+            UserImageCache.load(file, errorHandler);
         });
         $("#localImage").bind("change", function(event) {
             var file = this.files[0];
 
-            ImageList.load(file, errorHandler);
+            UserImageCache.load(file, errorHandler);
         });
 
         $("body").removeClass("no-local");
@@ -283,9 +283,9 @@ $(document).ready(function() {
             $("#repeatOptionsExpander").click();
         }
 
-        if (ImageList.getCurEntry() !== state.src) {
+        if (UserImageCache.getEntryId() !== state.src) {
             // The other values will update when the image loads
-            ImageList.load(state.src, errorHandler);
+            UserImageCache.load(state.src, errorHandler);
         } else if (prevScale !== state.scaleFactor) {
             imageEl.load();
         } else {
