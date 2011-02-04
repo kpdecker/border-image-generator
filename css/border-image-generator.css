@@ -125,7 +125,9 @@
 }
 
 .fileInput > input[type='file'] {
-    position: relative;
+    position: absolute;
+    top: 0px;
+    left: 0px;
     text-align: right;
     opacity: 0;
     z-index: 2;
