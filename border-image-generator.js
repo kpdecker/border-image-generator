@@ -58,7 +58,7 @@ $(document).ready(function() {
         repeatVertical: { index: 1 },
         repeatHorizontal: { index: 0 }
     };
-    
+
     function calcPixels(pos) {
         return (pos / state.scaleFactor) | 0;
     }
@@ -99,7 +99,7 @@ $(document).ready(function() {
     function updateCSS() {
         var borderImage = "", borderWidthStr = "", style = "",
             repeatStr = state.setRepeat ? " " + joinValues(state.repeat) : "";
-        
+
         if (validImage) {
             var img = "url(" + UserImageCache.getDisplayName() + ")",
                 imageOffset = state.imageOffset,
@@ -110,6 +110,7 @@ $(document).ready(function() {
             style = "border-width: " + borderWidthStr + ";\n"
                 + "-moz-border-image: " + borderImage + repeatStr + ";\n"
                 + "-webkit-border-image: " + borderImage + repeatStr + ";\n"
+                + "-o-border-image: " + borderImage + repeatStr + ";\n"
                 + "border-image: " + borderImage + repeatStr + ";\n";
 
             borderImage = "url(" + UserImageCache.getSrc() + ") " + joinValues(imageOffset);
@@ -119,6 +120,7 @@ $(document).ready(function() {
                 .css("border-width", borderWidthStr)
                 .css("-moz-border-image", borderImage + repeatStr)
                 .css("-webkit-border-image", borderImage + repeatStr)
+                .css("-o-border-image", borderImage + repeatStr)
                 .css("border-image", borderImage + repeatStr);
     }
 
@@ -193,7 +195,7 @@ $(document).ready(function() {
         updateCSS();
         updateHash();
     });
-    
+
     function errorHandler(code) {
         var msg;
         if (code === ImageList.NOT_FOUND) {
