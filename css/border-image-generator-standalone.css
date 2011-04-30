@@ -73,15 +73,10 @@ body.borderGenerator .footer {
   padding: 10px 25px;
   clear: both;
   overflow: auto;
-}
-body.borderGenerator .footer > .left {
-  float: left;
-}
-body.borderGenerator .footer > .right {
-  float: right;
+  text-align: center;
 }
 body.borderGenerator .header > a,
-body.borderGenerator .footer > div > a {
+body.borderGenerator .footer > a {
   color: #6598B8;
 }
 
