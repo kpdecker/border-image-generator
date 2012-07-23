@@ -8,6 +8,7 @@ $(document).ready(function() {
         imageEl = $("#imageEl"),
         dividers = $(".divider"),
         sliders = $(".slider"),
+        fillEl = $("#fillCenter"),
         cssEl = $("#cssEl"),
         repeat = $(".repeat"),
 
@@ -21,6 +22,7 @@ $(document).ready(function() {
             borderWidth: [0, 0, 0, 0],
             imageOffset: [0, 0, 0, 0],
 
+            fill: true,
             setRepat: false,
             repeat: ["stretch", "stretch"],
 
@@ -62,6 +64,9 @@ $(document).ready(function() {
     function calcPixels(pos) {
         return (pos / state.scaleFactor) | 0;
     }
+    function updateFill() {
+        fillEl[0].checked = !!state.fill;
+    }
     function updateSliders() {
         $(".slider").each(function(index, el) {
             var map = sliderMap[el.id];
@@ -98,6 +103,7 @@ $(document).ready(function() {
     }
     function updateCSS() {
         var borderImage = "", borderWidthStr = "", style = "",
+            fillStr = state.fill ? " fill" : "",
             repeatStr = state.setRepeat ? " " + joinValues(state.repeat) : "";
 
         if (validImage) {
@@ -111,7 +117,7 @@ $(document).ready(function() {
                 + "-moz-border-image: " + borderImage + repeatStr + ";\n"
                 + "-webkit-border-image: " + borderImage + repeatStr + ";\n"
                 + "-o-border-image: " + borderImage + repeatStr + ";\n"
-                + "border-image: " + borderImage + repeatStr + ";\n";
+                + "border-image: " + borderImage + fillStr + repeatStr + ";\n";
 
             borderImage = "url(" + UserImageCache.getSrc() + ") " + joinValues(imageOffset);
         }
@@ -121,8 +127,14 @@ $(document).ready(function() {
                 .css("-moz-border-image", borderImage + repeatStr)
                 .css("-webkit-border-image", borderImage + repeatStr)
                 .css("-o-border-image", borderImage + repeatStr)
-                .css("border-image", borderImage + repeatStr);
+                .css("border-image", borderImage + fillStr + repeatStr);
     }
+
+    fillEl.change(function() {
+        state.fill = this.checked;
+        updateCSS();
+        updateHash();
+    });
 
     sliders.slider({
         max: 100,
@@ -284,6 +296,8 @@ $(document).ready(function() {
         if ($("#repeatOptions").is(":visible") !== state.setRepeat) {
             $("#repeatOptionsExpander").click();
         }
+
+        updateFill();
 
         if (UserImageCache.getEntryId() !== state.src) {
             // The other values will update when the image loads
