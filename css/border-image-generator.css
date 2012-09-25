@@ -36,6 +36,7 @@
 
 #cssEl {
     white-space: pre;
+    border-style: solid;
 }
 
 #editorEl {

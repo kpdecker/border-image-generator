@@ -113,7 +113,8 @@ $(document).ready(function() {
 
             borderImage = img + " " + joinValues(imageOffset);
             borderWidthStr = joinValues(borderWidth, "px ") + "px";
-            style = "border-width: " + borderWidthStr + ";\n"
+            style = "border-style: solid;\n"
+            	+ "border-width: " + borderWidthStr + ";\n"
                 + "-moz-border-image: " + borderImage + repeatStr + ";\n"
                 + "-webkit-border-image: " + borderImage + repeatStr + ";\n"
                 + "-o-border-image: " + borderImage + repeatStr + ";\n"
