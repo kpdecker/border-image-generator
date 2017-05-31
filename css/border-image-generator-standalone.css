@@ -14,6 +14,7 @@ body.borderGenerator {
   font-size: 9pt;
   font-family: trebuchet ms,arial,helvetica,sans-serif;
   margin: 0;
+  padding: 2em;
 }
 body.borderGenrator > div {
   margin: 0px;
@@ -27,13 +28,10 @@ body.borderGenerator > .wrapper {
   margin: 0px auto;
   padding: 0;
   background-color: #131F27;
-
-  width: 1000px;
 }
 
 body.borderGenerator .header {
   background-color: black;
-  margin: 20px 0 0;
 }
 
 body.borderGenerator > .wrapper,
